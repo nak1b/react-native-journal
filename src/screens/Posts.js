@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ActivityIndicator, FlatList } from 'react-native'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 
@@ -9,11 +9,21 @@ class Posts extends Component {
   }
 
   render() {
-    console.log(this.props.data)
+    const { loading, allPosts } = this.props
+
+    if(loading) return <ActivityIndicator size="small" />
 
     return (
       <View>
-        <Text>Posts</Text>
+        <FlatList
+          data={allPosts}
+          renderItem={({item}) => {
+            return (
+              <Text>{item.title}</Text>
+            )
+          }}
+          keyExtractor={item => item.id}
+        />
       </View>
     )
   }
@@ -25,10 +35,13 @@ const styles = StyleSheet.create({
 
 const postsQuery = gql`
   {
-    allPosts{
+    allPosts {
       id
       title
     }
   }
 `
-export default graphql(postsQuery)(Posts)
+
+export default graphql(postsQuery, {
+  props: ({data}) => ({ ...data })
+})(Posts)
