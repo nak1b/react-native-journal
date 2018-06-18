@@ -1,8 +1,15 @@
 import React from 'react';
-import { StyleSheet, Button, Text, View } from 'react-native';
+import { StyleSheet, Button, Text, View } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import Post from './src/screens/Post'
+import Posts from './src/screens/Posts'
 import navStyles from './src/styles/navStyles'
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider } from 'react-apollo'
+
+const client = new ApolloClient({
+  uri: "https://api.graph.cool/simple/v1/cjikl2pzz1omm01918ts7n6a8"
+})
 
 class App extends React.Component {
   static navigationOptions = {
@@ -16,12 +23,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Button
-          onPress={this.goToPost}
-          title='Go to post page'
-        />
-      </View>
+      <ApolloProvider client={client}>
+        <View style={styles.container}>
+          <Posts />
+          <Button
+            onPress={this.goToPost}
+            title='Go to post page'
+          />
+        </View>
+      </ApolloProvider>
     );
   }
 }
