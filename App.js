@@ -1,22 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Button, Text, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation'
+import Post from './src/screens/Post'
+import navStyles from './src/styles/navStyles'
 
 class App extends React.Component {
   static navigationOptions = {
     title: 'Home',
-    headerStyle: {
-      backgroundColor: '#FFF'
-    },
-    headerTitleStyle: {
-      fontWeight: 'bold'
-    }
+    ...navStyles
+  }
+
+  goToPost = () => {
+    this.props.navigation.navigate('Post')
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+        <Button
+          onPress={this.goToPost}
+          title='Go to post page'
+        />
       </View>
     );
   }
@@ -34,5 +38,8 @@ const styles = StyleSheet.create({
 export default createStackNavigator({
   Home: {
     screen: App
+  },
+  Post: {
+    screen: Post
   }
 })
