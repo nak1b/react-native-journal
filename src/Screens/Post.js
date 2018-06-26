@@ -9,7 +9,7 @@ export default class Post extends Component {
   render() {
     return (
       <View>
-        <Text>Post</Text>
+        <Text>{this.props.navigation.state.params.id}</Text>
       </View>
     )
   }

@@ -8,6 +8,10 @@ class Posts extends Component {
     title: 'Posts'
   }
 
+  _goToPost(id) {
+    this.props.navigation.navigate('Post', { id })
+  }
+
   render() {
     const { loading, allPosts } = this.props
 
@@ -19,7 +23,9 @@ class Posts extends Component {
           data={allPosts}
           renderItem={({item}) => {
             return (
-              <Text>{item.title}</Text>
+              <Text onPress={() => this._goToPost(item.id)}>
+                {item.title}
+              </Text>
             )
           }}
           keyExtractor={item => item.id}

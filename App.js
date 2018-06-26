@@ -25,11 +25,7 @@ class App extends React.Component {
     return (
       <ApolloProvider client={client}>
         <View style={styles.container}>
-          <Posts />
-          <Button
-            onPress={this.goToPost}
-            title='Go to post page'
-          />
+          <Posts {...this.props} />
         </View>
       </ApolloProvider>
     );
