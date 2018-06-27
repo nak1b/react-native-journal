@@ -1,15 +1,22 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, ActivityIndicator, Text, StyleSheet } from 'react-native'
+import gql from 'graphql-tag'
+import { graphql } from 'react-apollo'
 
-export default class Post extends Component {
+class Post extends Component {
   static navigationOptions = {
     title: 'Post'
   }
 
   render() {
+    const { loading, Post } = this.props
+
+    if(loading) return <ActivityIndicator size="small" />
+
     return (
       <View>
-        <Text>{this.props.navigation.state.params.id}</Text>
+        <Text>{Post.id}</Text>
+        <Text>{Post.title}</Text>
       </View>
     )
   }
@@ -18,3 +25,21 @@ export default class Post extends Component {
 const styles = StyleSheet.create({
 
 })
+
+const postQuery = gql`
+  query Post($id: ID!) {
+    Post(id: $id) {
+      id,
+      title
+    }
+  }
+`
+
+export default graphql(postQuery, {
+  props: ({data}) => ({ ...data }),
+  options: ({navigation}) => ({
+    variables: {
+      id: navigation.state.params.id
+    }
+  })
+})(Post)
