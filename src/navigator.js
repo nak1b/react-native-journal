@@ -1,6 +1,8 @@
 import { createStackNavigator } from 'react-navigation'
-import Post from './screens/Post'
-import Home from './screens/Home'
+
+import Post     from './screens/Post'
+import Home     from './screens/Home'
+import NewPost  from './screens/NewPost'
 
 export default createStackNavigator({
   Home: {
@@ -8,5 +10,8 @@ export default createStackNavigator({
   },
   Post: {
     screen: Post
+  },
+  NewPost: {
+    screen: NewPost
   }
 })
