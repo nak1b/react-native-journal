@@ -23,7 +23,7 @@ class NewPost extends Component {
       }
     })
     .then(() => {
-
+      this.props.navigation.goBack()
     })
     .catch(err => {
       console.log(err)
@@ -85,5 +85,8 @@ const newPost = gql`
 `
 
 export default graphql(newPost, {
-  name: 'newPost'
+  name: 'newPost',
+  options: {
+    refetchQueries: ['postQuery']
+  }
 })(NewPost)

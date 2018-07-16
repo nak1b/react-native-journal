@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 })
 
 const postsQuery = gql`
-  {
+  query postQuery {
     allPosts {
       id
       title
