@@ -4,8 +4,10 @@ import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 
 class Post extends Component {
-  static navigationOptions = {
-    title: 'Post'
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.state.params.title
+    }
   }
 
   render() {
@@ -15,8 +17,7 @@ class Post extends Component {
 
     return (
       <View>
-        <Text>{Post.id}</Text>
-        <Text>{Post.title}</Text>
+        <Text>{Post.body}</Text>
       </View>
     )
   }
@@ -30,7 +31,8 @@ const postQuery = gql`
   query Post($id: ID!) {
     Post(id: $id) {
       id,
-      title
+      title,
+      body
     }
   }
 `

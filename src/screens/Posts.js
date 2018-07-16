@@ -8,8 +8,11 @@ class Posts extends Component {
     title: 'Posts'
   }
 
-  _goToPost(id) {
-    this.props.navigation.navigate('Post', { id })
+  _goToPost({id, title}) {
+    this.props.navigation.navigate('Post', {
+      id,
+      title
+    })
   }
 
   render() {
@@ -23,7 +26,7 @@ class Posts extends Component {
           data={allPosts}
           renderItem={({item}) => {
             return (
-              <Text onPress={() => this._goToPost(item.id)}>
+              <Text onPress={() => this._goToPost(item)}>
                 {item.title}
               </Text>
             )
