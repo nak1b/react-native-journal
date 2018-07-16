@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, ActivityIndicator, FlatList } from 'react-native'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
+import { List, ListItem, Body, Right, Icon } from 'native-base'
 
 class Posts extends Component {
   static navigationOptions = {
@@ -15,6 +16,19 @@ class Posts extends Component {
     })
   }
 
+  _renderItem(item) {
+    return (
+      <ListItem onPress={() => this._goToPost(item)}>
+        <Body>
+          <Text>{item.title}</Text>
+        </Body>
+        <Right>
+          <Icon name='arrow-forward' />
+        </Right>
+      </ListItem>
+    )
+  }
+
   render() {
     const { loading, allPosts } = this.props
 
@@ -22,17 +36,13 @@ class Posts extends Component {
 
     return (
       <View>
-        <FlatList
-          data={allPosts}
-          renderItem={({item}) => {
-            return (
-              <Text onPress={() => this._goToPost(item)}>
-                {item.title}
-              </Text>
-            )
-          }}
-          keyExtractor={item => item.id}
-        />
+        <List>
+          <FlatList
+            data={allPosts}
+            renderItem={({item}) => this._renderItem(item)}
+            keyExtractor={item => item.id}
+          />
+        </List>
       </View>
     )
   }

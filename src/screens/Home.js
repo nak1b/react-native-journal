@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native'
+import { Fab, Icon } from 'native-base'
 import navStyles from '../styles/navStyles'
 import Posts from './Posts'
 
@@ -21,11 +22,11 @@ class Home extends React.Component {
     return (
       <View style={styles.container}>
         <Posts {...this.props} />
-        <TouchableHighlight
-          onPress={() => this.goToNewPost()} 
-          style={styles.button}>
-          <Text style={styles.buttonText}>NEW POST</Text>
-        </TouchableHighlight>
+        <Fab
+          style={styles.fab}
+          onPress={() => this.goToNewPost()}>
+          <Icon name='add' />
+        </Fab>
       </View>
     );
   }
@@ -37,19 +38,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: '#fff',
   },
-
-  button: {
-    backgroundColor: '#e74c3c',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50
-  },
-
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-    letterSpacing: 1
+  fab: {
+    backgroundColor: '#e74c3c'
   }
 });
 
