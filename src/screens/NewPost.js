@@ -14,7 +14,22 @@ class NewPost extends Component {
   }
 
   submit() {
-    
+    const { title, body } = this.state
+
+    this.props.newPost({
+      variables: {
+        title,
+        body
+      }
+    })
+    .then(() => {
+
+    })
+    .catch(err => {
+      console.log(err)
+    })
+
+
   }
 
   render() {
@@ -24,14 +39,17 @@ class NewPost extends Component {
     if(loading) return <ActivityIndicator size="small" />
 
     return (
-      <View>
-        <Text>New Post</Text>
+      <View style={styles.container}>
         <TextInput
+          style={styles.input}
           value={title}
+          placeholder='Title'
           onChangeText={title => this.setState({title})}
         />
         <TextInput
+          style={styles.input}
           value={body}
+          placeholder='Body'
           onChangeText={body => this.setState({body})}
         />
         <Button
@@ -44,16 +62,28 @@ class NewPost extends Component {
 }
 
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: 'white'
+  },
+  input: {
+    height: 44,
+    padding: 8,
+    borderWidth: 1,
+    borderColor: '#5d5d5d',
+    marginBottom: 12
+  }
 })
 
-const postQuery = gql`
-  query Post($id: ID!) {
-    Post(id: $id) {
-      id,
-      title
+const newPost = gql`
+  mutation newPost($title:String!, $body:String!) {
+    createPost(title:$title, body:$body) {
+      id
     }
   }
 `
 
-export default NewPost
+export default graphql(newPost, {
+  name: 'newPost'
+})(NewPost)
