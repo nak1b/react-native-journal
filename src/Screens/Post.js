@@ -16,15 +16,22 @@ class Post extends Component {
     if(loading) return <ActivityIndicator size="small" />
 
     return (
-      <View>
-        <Text>{Post.body}</Text>
+      <View style={styles.container}>
+        <Text style={styles.body}>{Post.body}</Text>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF',
+    padding: 16
+  },
+  body: {
+    fontSize: 16
+  }
 })
 
 const postQuery = gql`

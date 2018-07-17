@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { View, Button, TextInput, ActivityIndicator, Text, StyleSheet } from 'react-native'
+import { View, ActivityIndicator, Text, StyleSheet } from 'react-native'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
+import { Form, Item, Input, Label, Button, Content } from 'native-base'
 
 class NewPost extends Component {
   state = {
@@ -40,22 +41,31 @@ class NewPost extends Component {
 
     return (
       <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          value={title}
-          placeholder='Title'
-          onChangeText={title => this.setState({title})}
-        />
-        <TextInput
-          style={styles.input}
-          value={body}
-          placeholder='Body'
-          onChangeText={body => this.setState({body})}
-        />
+        <Form>
+          <Item floatingLabel style={styles.item}>
+            <Label>Title</Label>
+            <Input
+              value={title}
+              onChangeText={title => this.setState({title})}
+            />
+          </Item>
+          <Item floatingLabel style={styles.item}>
+            <Label>Body</Label>
+            <Input
+              multiline
+              style={styles.body}
+              value={body}
+              onChangeText={body => this.setState({body})}
+            />
+          </Item>
+
+        </Form>
         <Button
-          onPress={() => this.submit()}
-          title='Submit'
-        />
+          style={styles.button}
+          rounded
+          onPress={() => this.submit()}>
+          <Text style={styles.buttonText}>Create Post</Text>
+        </Button>
       </View>
     )
   }
@@ -64,15 +74,26 @@ class NewPost extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
-  input: {
-    height: 44,
-    padding: 8,
-    borderWidth: 1,
-    borderColor: '#5d5d5d',
-    marginBottom: 12
+  item: {
+    marginTop: 24
+  },
+  body: {
+    height: 160,
+    textAlignVertical: 'top'
+  },
+  button: {
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+    marginHorizontal: 16,
+    backgroundColor: '#e74c3c'
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#FFF'
   }
 })
 
