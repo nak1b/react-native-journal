@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 
 const postsQuery = gql`
   query postQuery {
-    allPosts {
+    allPosts(orderBy: createdAt_DESC) {
       id
       title
     }
